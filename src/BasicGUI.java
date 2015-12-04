@@ -2,20 +2,20 @@ import java.awt.*;
 import javax.swing.*;
 
 public class BasicGUI {
-	public JFrame window;
+    public JFrame window;
     public JLabel label = new JLabel("Label");
-	public JButton button1 = new JButton("Button 1");
-	public JButton button2 = new JButton("Button 2");
+    public JButton button1 = new JButton("Button 1");
+    public JButton button2 = new JButton("Button 2");
     public JTextField field1 = new JTextField();
     public JTextField field2 = new JTextField();
 
     static final int B = 4;
 
-	public BasicGUI() {
+    public BasicGUI() {
         this.window = new JFrame();
-		Container c = this.window.getContentPane();
-		SpringLayout layout = new SpringLayout();
-		c.setLayout(layout);
+        Container c = this.window.getContentPane();
+        SpringLayout layout = new SpringLayout();
+        c.setLayout(layout);
         window.add(label);
         window.add(button1);
         window.add(button2);
@@ -47,12 +47,13 @@ public class BasicGUI {
         window.setMinimumSize(new Dimension(400, 200));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Basic GUI");
-	}
-	
-	public void showWindow() {
+    }
+
+    public void showWindow() {
         EventQueue.invokeLater(new Runnable() {
-            @Override public void run() {
-               try {
+            @Override
+            public void run() {
+                try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (Exception e) {
                     // Do Nothing (it will fall back to default LnF)
@@ -60,5 +61,5 @@ public class BasicGUI {
                 window.setVisible(true);
             }
         });
-	}
+    }
 }
