@@ -1,7 +1,26 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.*;
 
 public class BasicGUI {
+    abstract class ReflectionBindingActionListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent actionEvent) {
+            try {
+                wrappedReflectionCall();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace(System.err);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace(System.err);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace(System.err);
+            }
+        }
+
+        public abstract void wrappedReflectionCall() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    }
+
     public JFrame window;
     public JLabel label = new JLabel("Label");
     public JButton button1 = new JButton("Button 1");
@@ -11,8 +30,22 @@ public class BasicGUI {
 
     static final int B = 4;
 
-    public BasicGUI() {
+    public BasicGUI(final Class cls, final String button1BindingName, final String button2BindingName) {
         this.window = new JFrame();
+
+        final BasicGUI gui = this;
+
+        button1.addActionListener(new ReflectionBindingActionListener() {
+            @Override public void wrappedReflectionCall() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+                cls.getMethod(button1BindingName, new Class[]{ BasicGUI.class }).invoke(null, gui);
+            }
+        });
+        button2.addActionListener(new ReflectionBindingActionListener() {
+            @Override public void wrappedReflectionCall() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+                cls.getMethod(button2BindingName, new Class[]{ BasicGUI.class }).invoke(null, gui);
+            }
+        });
+
         Container c = this.window.getContentPane();
         SpringLayout layout = new SpringLayout();
         c.setLayout(layout);
@@ -47,6 +80,8 @@ public class BasicGUI {
         window.setMinimumSize(new Dimension(400, 200));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Basic GUI");
+
+        this.showWindow();
     }
 
     public void showWindow() {

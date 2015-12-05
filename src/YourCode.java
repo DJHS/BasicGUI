@@ -3,30 +3,16 @@ import java.awt.event.ActionListener;
 
 public class YourCode {
     public static void main(String[] args) {
-        final BasicGUI gui = new BasicGUI();
-        gui.button1.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent actionEvent) {
-                button1Clicked(gui);
-            }
-        });
-        gui.button2.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent actionEvent) {
-                button2Clicked(gui);
-            }
-        });
-        gui.showWindow();
+        final BasicGUI gui = new BasicGUI(new Object(){}.getClass().getEnclosingClass(), "button1Clicked", "button2Clicked");
 
-        /* You can write more code here if you desire */
-
+        /* Write code here that you want to run on startup */
     }
 
     public static void button1Clicked(BasicGUI gui) {
-        /* Write what happens after button1 gets clicked here */
-
+        /* Write code here to run when button1 gets clicked */
     }
 
     public static void button2Clicked(BasicGUI gui) {
-        /* Write what happens after button2 gets clicked here */
-
+        /* Write code here to run when button2 gets clicked */
     }
 }
