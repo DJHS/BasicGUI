@@ -1,6 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class YourCode {
     public static void main(String[] args) {
         final BasicGUI gui = new BasicGUI(new Object(){}.getClass().getEnclosingClass(), "button1Clicked", "button2Clicked");
